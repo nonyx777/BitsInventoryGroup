@@ -36,12 +36,12 @@ public class Transaction implements Serializable{
     }
     
     //product getter and setter
-    /*public Product getProduct(){
-        return product;
+    public String getProduct(){
+        return this.product_string;
     }
-    public void setProduct(Product product){
-        this.product = product;
-    }*/
+    public void setProduct(String product_string){
+        this.product_string = product_string;
+    }
     //date getter and setter
     public String getDate(){
         return this.date;
@@ -56,18 +56,18 @@ public class Transaction implements Serializable{
     public void setQuantity(String quantity){
         this.quantity = quantity;
     }
+    //price getter and setter
+    public String getPrice(){
+        return this.price;
+    }
+    public void setPrice(String price){
+        this.price = price;
+    }
     //totalprice getter and setter
     public String getTotalPrice(){
         return this.totalPrice;
     }
     public void setTotalPrice(String totalPrice){
         this.totalPrice = totalPrice;
-    }
-    //string product getter and setter
-    public String getStringProduct(){
-        return this.product_string;
-    }
-    public void setStringProduct(String product_string){
-        this.product_string = product_string;
     }
 }
