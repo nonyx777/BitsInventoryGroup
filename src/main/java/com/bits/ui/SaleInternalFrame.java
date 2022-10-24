@@ -7,6 +7,7 @@ package com.bits.ui;
 import com.bits.Sale;
 import com.bits.services.SaleService;
 import java.io.IOException;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,13 +17,16 @@ import javax.swing.JOptionPane;
 public class SaleInternalFrame extends javax.swing.JInternalFrame {
     SaleTableModel model;
     
+    //combobox parameters
+    //private String[] productItems = {"Samsung", "Iphone", "HP", "Toshiba"};
+    
     /**
      * Creates new form NewJInternalFrame
      */
     public SaleInternalFrame() {
         model = new SaleTableModel();
         SaleService service = new SaleService();
-        model.sales = service.getAll();
+        model.sales = service.getAll();       
         initComponents();
     }
 
@@ -37,11 +41,15 @@ public class SaleInternalFrame extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
         quantityField = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        totalPriceField = new javax.swing.JTextField();
         saveBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         unitTable = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        ItemComboBox = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        dateField = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        priceField = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -49,9 +57,7 @@ public class SaleInternalFrame extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Quantity");
 
-        jLabel2.setText("TotalPrice");
-
-        saveBtn.setText("Save");
+        saveBtn.setText("sale");
         saveBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveBtnActionPerformed(evt);
@@ -61,6 +67,14 @@ public class SaleInternalFrame extends javax.swing.JInternalFrame {
         unitTable.setModel(model);
         jScrollPane1.setViewportView(unitTable);
 
+        jLabel3.setText("Product");
+
+        ItemComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Samsung", "Iphone", "HP", "Toshiba" }));
+
+        jLabel4.setText("Date");
+
+        jLabel5.setText("Price");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -68,33 +82,53 @@ public class SaleInternalFrame extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(quantityField, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(totalPriceField, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(167, 167, 167)
                         .addComponent(saveBtn))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ItemComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dateField, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel5))
+                        .addGap(21, 21, 21)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(priceField, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(quantityField, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(quantityField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(totalPriceField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(saveBtn))
-                .addGap(30, 30, 30)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(ItemComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(dateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(quantityField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(priceField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(saveBtn)
+                .addGap(38, 38, 38)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -102,11 +136,13 @@ public class SaleInternalFrame extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
-        if (quantityField.getText().equals("") || totalPriceField.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Both quantity and total price are required!");
+        if (quantityField.getText().equals("") || dateField.getText().equals("") || priceField.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Quantity, total price and date are required!");
         }else {
             SaleService service = new SaleService();
-            Sale sale = new Sale(quantityField.getText(), totalPriceField.getText());
+            float totalPriceValueFloat = (Float.parseFloat(quantityField.getText()) * Float.parseFloat(priceField.getText()));
+            String totalPriceValueString = Float.toString(totalPriceValueFloat);
+            Sale sale = new Sale((String) ItemComboBox.getSelectedItem(),dateField.getText(), quantityField.getText(), priceField.getText(), totalPriceValueString);
             try {
                 service.save(sale);
             } catch (IOException ex) {
@@ -114,18 +150,24 @@ public class SaleInternalFrame extends javax.swing.JInternalFrame {
             model.sales.add(sale);
             model.fireTableDataChanged();
             quantityField.setText("");
-            totalPriceField.setText("");
+            dateField.setText("");
+            priceField.setText("");
         }
     }//GEN-LAST:event_saveBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> ItemComboBox;
+    private javax.swing.JTextField dateField;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField priceField;
     private javax.swing.JTextField quantityField;
     private javax.swing.JButton saveBtn;
-    private javax.swing.JTextField totalPriceField;
     private javax.swing.JTable unitTable;
     // End of variables declaration//GEN-END:variables
+
 }

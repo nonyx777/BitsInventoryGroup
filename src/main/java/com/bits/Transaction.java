@@ -11,37 +11,42 @@ import java.util.Date;
  * @author nonyx
  */
 public class Transaction implements Serializable{
-    private Product product;
-    private Date date;
+    //private Product product;
+    private String product_string;
+    private String date;
     private String quantity;
+    private String price;
     private String totalPrice;
     
     public Transaction(){
         
     }
-    public Transaction(Product product, Date date, String quantity, String totalPrice){
+    /*public Transaction(Product product, String date, String quantity, String totalPrice){
         this.product = product;
         this.date = date;
         this.quantity = quantity;
         this.totalPrice = totalPrice;
-    }
-    public Transaction(String quantity, String totalPrice){
+    }*/
+    public Transaction(String product_string, String date, String quantity, String price, String totalPrice){
+        this.product_string = product_string;
+        this.date = date;
         this.quantity = quantity;
+        this.price = price;
         this.totalPrice = totalPrice;
     }
     
     //product getter and setter
-    public Product getProduct(){
+    /*public Product getProduct(){
         return product;
     }
     public void setProduct(Product product){
         this.product = product;
-    }
+    }*/
     //date getter and setter
-    public Date getDate(){
+    public String getDate(){
         return this.date;
     }
-    public void setDate(Date date){
+    public void setDate(String date){
         this.date = date;
     }
     //quantity getter and setter
@@ -57,5 +62,12 @@ public class Transaction implements Serializable{
     }
     public void setTotalPrice(String totalPrice){
         this.totalPrice = totalPrice;
+    }
+    //string product getter and setter
+    public String getStringProduct(){
+        return this.product_string;
+    }
+    public void setStringProduct(String product_string){
+        this.product_string = product_string;
     }
 }

@@ -20,14 +20,17 @@ import javax.swing.table.AbstractTableModel;
  */
 public class SaleTableModel extends AbstractTableModel{
     List<Sale> sales = new ArrayList<>();
-    String columnNames[] = {"Quantity", "TotalPrice"};
-    Class<?> columnClasses[] = {String.class, String.class};
+    String columnNames[] = {"Product", "Date", "Quantity", "Price", "TotalPrice"};
+    Class<?> columnClasses[] = {String.class, String.class, String.class, String.class, String.class};
     
     Map fieldMap = new HashMap();
     
     SaleTableModel(){
-        fieldMap.put(0, "Quantity");
-        fieldMap.put(1, "TotalPrice");
+        fieldMap.put(0, "Product");
+        fieldMap.put(1, "Date");
+        fieldMap.put(2, "Quantity");
+        fieldMap.put(3, "Price");
+        fieldMap.put(4, "TotalPrice");
     }
     
     @Override

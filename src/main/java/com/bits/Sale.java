@@ -15,11 +15,11 @@ public class Sale extends Transaction implements Serializable{
     public Sale() {
     }
     
-    public Sale(Product product, Date saleDate, String quantity, String totalPrice) {
+    /*public Sale(Product product, String saleDate, String quantity, String totalPrice) {
         super(product, saleDate, quantity, totalPrice);
-    }
+    }*/
     
-    public Sale(String quantity, String totalPrice){
-        super(quantity, totalPrice);
+    public Sale(String product_string, String saleDate, String quantity, String price, String totalPrice){
+        super(product_string, saleDate, quantity, price, totalPrice);
     }
 }
