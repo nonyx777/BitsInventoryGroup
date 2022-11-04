@@ -18,7 +18,7 @@ public class SaleInternalFrame extends javax.swing.JInternalFrame {
     SaleTableModel model;
     
     //combobox parameters
-    //private String[] productItems = {"Samsung", "Iphone", "HP", "Toshiba"};
+    private String[] productItems = {"Samsung", "Iphone", "HP", "Toshiba"};
     
     /**
      * Creates new form NewJInternalFrame
@@ -28,6 +28,9 @@ public class SaleInternalFrame extends javax.swing.JInternalFrame {
         SaleService service = new SaleService();
         model.sales = service.getAll();       
         initComponents();
+        for(String item : productItems){
+            ItemComboBox.addItem(item);
+        }
     }
 
     /**
@@ -68,8 +71,6 @@ public class SaleInternalFrame extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(unitTable);
 
         jLabel3.setText("Product");
-
-        ItemComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Samsung", "Iphone", "HP", "Toshiba" }));
 
         jLabel4.setText("Date");
 
