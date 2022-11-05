@@ -12,6 +12,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,65 +27,62 @@ public class SaleService {
     private final String filename = "sales.obj";
     
     public void save(Sale sale) throws IOException{
-        File f = new File(filename);
-        FileOutputStream fos = null;
-        ObjectOutputStream oos = null;
-        
-        try{
-            if(f.exists()){
-                fos = new FileOutputStream(filename, true);
-                oos = new AppendableObjectOutputStream(fos);
-            }else{
-                fos = new FileOutputStream(filename);
-                oos = new ObjectOutputStream(fos);
-            }
-            
-            oos.writeObject(sale);
-            
-            oos.close();
-            fos.close();
-        } finally{
-            if(oos != null){
-                oos.close();
-            }
-            if(fos != null){
-                fos.close();
-            }
-        }
+        String sql = String.format(
+        "INSERT INTO sale(product, date, quantity, price, total_price) VALUES('%s', '%s', '%s', '%s', '%s')", sale.getProduct(), sale.getDate(), sale.getQuantity(), sale.getPrice(), sale.getTotalPrice());
+        DatabaseService service = new DatabaseService();
+        System.out.println("sql executed");
+        service.execute(sql);
     }
     
     public ArrayList<Sale> getAll(){
-        boolean eof = false;
         ArrayList<Sale> data = new ArrayList<>();
+        String sql = "SELECT * FROM sale ORDER BY id";
+        DatabaseService service = new DatabaseService();
         
         try(
-            FileInputStream fis = new FileInputStream(filename);
-            ObjectInputStream ois = new ObjectInputStream(fis)){
-            Sale sale;
-            
-            while(!eof){
-                sale = (Sale) ois.readObject();
-                if(sale != null){
-                    data.add(sale);
-                }else{
-                    eof = true;
-                }
+                Connection conn = service.connect();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql)
+        ){
+            while(rs.next()){
+                data.add(
+                    new Sale(
+                        rs.getInt("id"),
+                        rs.getString("product"),
+                        rs.getString("date"),
+                        rs.getString("quantity"),
+                        rs.getString("price"),
+                        rs.getString("total_price"))
+                );
             }
-        }catch(IOException ex){
+        }catch(SQLException ex){
             ex.printStackTrace();
         }finally{
             return data;
         }
     }
     
+    public void update(Sale sale, String column, String value){
+        String sql = String.format(
+                "UPDATE sale SET %s='%s' WHERE id=%d",
+                column,
+                value,
+                sale.getID()
+        );
+        DatabaseService service = new DatabaseService();
+        service.execute(sql);
+    }
+    
     public void writeAll(List<Sale> sales){
-        try(FileOutputStream fos = new FileOutputStream(filename);
-            ObjectOutputStream oos = new ObjectOutputStream(fos)){
-            for(Sale sale: sales){
-                oos.writeObject(sale);
+        String values = "";
+        for(Sale sale : sales){
+            if(!values.equals("")){
+                values += ",";
             }
-        }catch(IOException ex){
-            //....
+            values += String.format("('%s', '%s', '%s', '%s', '%s')", sale.getProduct(), sale.getDate(), sale.getQuantity(), sale.getPrice(), sale.getTotalPrice());
         }
+        String sql = String.format("INSERT INTO sale(product, date, quantity, price, total_price) VALUES %s;", values);
+        DatabaseService service = new DatabaseService();
+        service.execute(sql);
     }
 }

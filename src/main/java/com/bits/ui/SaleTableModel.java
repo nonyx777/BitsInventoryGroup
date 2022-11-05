@@ -20,17 +20,18 @@ import javax.swing.table.AbstractTableModel;
  */
 public class SaleTableModel extends AbstractTableModel{
     List<Sale> sales = new ArrayList<>();
-    String columnNames[] = {"Product", "Date", "Quantity", "Price", "TotalPrice"};
-    Class<?> columnClasses[] = {String.class, String.class, String.class, String.class, String.class};
+    String columnNames[] = {"ID", "Product", "Date", "Quantity", "Price", "TotalPrice"};
+    Class<?> columnClasses[] = {Integer.class, String.class, String.class, String.class, String.class, String.class};
     
     Map fieldMap = new HashMap();
     
     SaleTableModel(){
-        fieldMap.put(0, "Product");
-        fieldMap.put(1, "Date");
-        fieldMap.put(2, "Quantity");
-        fieldMap.put(3, "Price");
-        fieldMap.put(4, "TotalPrice");
+        fieldMap.put(0, "ID");
+        fieldMap.put(1, "Product");
+        fieldMap.put(2, "Date");
+        fieldMap.put(3, "Quantity");
+        fieldMap.put(4, "Price");
+        fieldMap.put(5, "TotalPrice");
     }
     
     @Override
@@ -45,7 +46,8 @@ public class SaleTableModel extends AbstractTableModel{
     public Object getValueAt(int rowIndex, int columnIndex){
         var methodName = String.format("get%s", (String) fieldMap.get(columnIndex));
         Method method = Util.getByMethodName(sales.get(rowIndex), methodName);
-        return (String) Util.callMethod(method, sales.get(rowIndex));
+        Object result = Util.callMethod(method, sales.get(rowIndex));
+        return columnIndex == 0 ? (int) result : (String) result;
     }
     
     @Override
@@ -59,11 +61,13 @@ public class SaleTableModel extends AbstractTableModel{
     
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex){
-        return true;
+        return columnIndex != 0;
     }
     
     @Override
     public void setValueAt(Object aValue, int rowIndex, int columnIndex){
+        Sale sale = sales.get(rowIndex);
+        String column = (String) fieldMap.get(columnIndex);
         var methodName = String.format("set%s", (String) fieldMap.get(columnIndex));
         Method method = Util.getByMethodName(sales.get(rowIndex), methodName, String.class);
         Util.callMethod(method, sales.get(rowIndex), aValue);
@@ -71,6 +75,6 @@ public class SaleTableModel extends AbstractTableModel{
         fireTableCellUpdated(rowIndex, columnIndex);
         
         SaleService service = new SaleService();
-        service.writeAll(sales);
+        service.update(sale, column, (String) aValue);
     }
 }

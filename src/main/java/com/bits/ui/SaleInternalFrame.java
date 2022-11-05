@@ -7,7 +7,6 @@ package com.bits.ui;
 import com.bits.Sale;
 import com.bits.services.SaleService;
 import java.io.IOException;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 /**
@@ -143,12 +142,12 @@ public class SaleInternalFrame extends javax.swing.JInternalFrame {
             SaleService service = new SaleService();
             float totalPriceValueFloat = (Float.parseFloat(quantityField.getText()) * Float.parseFloat(priceField.getText()));
             String totalPriceValueString = Float.toString(totalPriceValueFloat);
-            Sale sale = new Sale((String) ItemComboBox.getSelectedItem(),dateField.getText(), quantityField.getText(), priceField.getText(), totalPriceValueString);
+            Sale sale = new Sale(ItemComboBox.getSelectedItem().toString(),dateField.getText(), quantityField.getText(), priceField.getText(), totalPriceValueString);
             try {
                 service.save(sale);
             } catch (IOException ex) {
             }
-            model.sales.add(sale);
+            model.sales = service.getAll();
             model.fireTableDataChanged();
             quantityField.setText("");
             dateField.setText("");

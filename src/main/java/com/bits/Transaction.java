@@ -12,6 +12,7 @@ import java.util.Date;
  */
 public class Transaction implements Serializable{
     //private Product product;
+    private int id;
     private String product_string;
     private String date;
     private String quantity;
@@ -35,6 +36,19 @@ public class Transaction implements Serializable{
         this.totalPrice = totalPrice;
     }
     
+    public Transaction(int id, String product_string, String date, String quantity, String price, String totalPrice){
+        this(product_string, date, quantity, price, totalPrice);
+        this.id = id;
+    }
+    
+    
+    //id getter and setter
+    public int getID(){
+        return this.id;
+    }
+    public void setID(int id){
+        this.id = id;
+    }
     //product getter and setter
     public String getProduct(){
         return this.product_string;
