@@ -15,9 +15,9 @@ public class Transaction implements Serializable{
     private int id;
     private String product_string;
     private String date;
-    private String quantity;
-    private String price;
-    private String totalPrice;
+    private float quantity;
+    private float price;
+    private float totalPrice;
     
     public Transaction(){
         
@@ -28,7 +28,7 @@ public class Transaction implements Serializable{
         this.quantity = quantity;
         this.totalPrice = totalPrice;
     }*/
-    public Transaction(String product_string, String date, String quantity, String price, String totalPrice){
+    public Transaction(String product_string, String date, float quantity, float price, float totalPrice){
         this.product_string = product_string;
         this.date = date;
         this.quantity = quantity;
@@ -36,7 +36,7 @@ public class Transaction implements Serializable{
         this.totalPrice = totalPrice;
     }
     
-    public Transaction(int id, String product_string, String date, String quantity, String price, String totalPrice){
+    public Transaction(int id, String product_string, String date, float quantity, float price, float totalPrice){
         this(product_string, date, quantity, price, totalPrice);
         this.id = id;
     }
@@ -64,24 +64,24 @@ public class Transaction implements Serializable{
         this.date = date;
     }
     //quantity getter and setter
-    public String getQuantity(){
+    public float getQuantity(){
         return this.quantity;
     }
-    public void setQuantity(String quantity){
+    public void setQuantity(float quantity){
         this.quantity = quantity;
     }
     //price getter and setter
-    public String getPrice(){
+    public float getPrice(){
         return this.price;
     }
-    public void setPrice(String price){
+    public void setPrice(float price){
         this.price = price;
     }
     //totalprice getter and setter
-    public String getTotalPrice(){
+    public float getTotalPrice(){
         return this.totalPrice;
     }
-    public void setTotalPrice(String totalPrice){
+    public void setTotalPrice(float totalPrice){
         this.totalPrice = totalPrice;
     }
 }

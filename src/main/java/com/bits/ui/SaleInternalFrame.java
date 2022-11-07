@@ -142,7 +142,7 @@ public class SaleInternalFrame extends javax.swing.JInternalFrame {
             SaleService service = new SaleService();
             float totalPriceValueFloat = (Float.parseFloat(quantityField.getText()) * Float.parseFloat(priceField.getText()));
             String totalPriceValueString = Float.toString(totalPriceValueFloat);
-            Sale sale = new Sale(ItemComboBox.getSelectedItem().toString(),dateField.getText(), quantityField.getText(), priceField.getText(), totalPriceValueString);
+            Sale sale = new Sale(ItemComboBox.getSelectedItem().toString(),dateField.getText(), Float.parseFloat(quantityField.getText()), Float.parseFloat(priceField.getText()), totalPriceValueFloat);
             try {
                 service.save(sale);
             } catch (IOException ex) {

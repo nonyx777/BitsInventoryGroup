@@ -50,9 +50,9 @@ public class SaleService {
                         rs.getInt("id"),
                         rs.getString("product"),
                         rs.getString("date"),
-                        rs.getString("quantity"),
-                        rs.getString("price"),
-                        rs.getString("total_price"))
+                        rs.getFloat("quantity"),
+                        rs.getFloat("price"),
+                        rs.getFloat("total_price"))
                 );
             }
         }catch(SQLException ex){

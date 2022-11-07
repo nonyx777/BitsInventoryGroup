@@ -21,7 +21,7 @@ import javax.swing.table.AbstractTableModel;
 public class SaleTableModel extends AbstractTableModel{
     List<Sale> sales = new ArrayList<>();
     String columnNames[] = {"ID", "Product", "Date", "Quantity", "Price", "TotalPrice"};
-    Class<?> columnClasses[] = {Integer.class, String.class, String.class, String.class, String.class, String.class};
+    Class<?> columnClasses[] = {Integer.class, String.class, String.class, Float.class, Float.class, Float.class};
     
     Map fieldMap = new HashMap();
     
@@ -47,7 +47,7 @@ public class SaleTableModel extends AbstractTableModel{
         var methodName = String.format("get%s", (String) fieldMap.get(columnIndex));
         Method method = Util.getByMethodName(sales.get(rowIndex), methodName);
         Object result = Util.callMethod(method, sales.get(rowIndex));
-        return columnIndex == 0 ? (int) result : (String) result;
+        return columnIndex == 0 ? (int) result : columnIndex >= 1 && columnIndex <= 2 ? (String) result : (float) result;
     }
     
     @Override
